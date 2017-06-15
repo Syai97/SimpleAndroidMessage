@@ -33,6 +33,8 @@ public class displayMessage extends AppCompatActivity {
                 finish();
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
+
+
             }
         });
 

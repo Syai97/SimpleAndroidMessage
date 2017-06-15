@@ -49,11 +49,16 @@ public class MainActivity extends AppCompatActivity{
         nama = (EditText) findViewById(R.id.nama);
         kp = (EditText) findViewById(R.id.kp);
         android_id = Settings.Secure.getString( getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        st = getSharedPreferences("Info", Context.MODE_PRIVATE);
+
+
 
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseInstanceId.getInstance().getToken();
 
-
+        SharedPreferences.Editor ed = st.edit();
+        ed.putString("Status", "Undefined");
+        ed.apply();
 //        reg.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -62,14 +67,8 @@ public class MainActivity extends AppCompatActivity{
 //            }
 //        });
 
-//        st = getSharedPreferences("status", Context.MODE_PRIVATE);
-//        status = st.getString("Status", null);
 
-//        if(status.equals("active")){
-//            act.setEnabled(false);
-//        }
-//        else
-//            act.setEnabled(true);
+
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +85,29 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 updateInfo(android_id, nama.getText().toString(), kp.getText().toString());
                 Toast.makeText(MainActivity.this, "Berjaya", Toast.LENGTH_LONG).show();
+
+                SharedPreferences.Editor editor = st.edit();
+
+                editor.putString("Nama", nama.getText().toString());
+                editor.putString("IC", kp.getText().toString());
+                editor.putString("Status", "Berjaya");
+                editor.apply();
+
             }
         });
+
+        String s = st.getString("Status", null);
+        String n = st.getString("Nama", null);
+        String mykad = st.getString("IC", null);
+
+        nama.setText(n);
+        kp.setText(mykad);
+
+        if(s.equalsIgnoreCase("Berjaya")){
+            act.setEnabled(false);
+        }
+        else
+            act.setEnabled(true);
 
 
     }
