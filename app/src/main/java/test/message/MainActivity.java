@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity{
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseInstanceId.getInstance().getToken();
 
-
+        SharedPreferences.Editor ed = st.edit();
+        ed.putString("Status", "Undefined");
+        ed.apply();
 //        reg.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -103,14 +105,9 @@ public class MainActivity extends AppCompatActivity{
 
         if(s.equalsIgnoreCase("Berjaya")){
             act.setEnabled(false);
-            nama.setEnabled(false);
-            kp.setEnabled(false);
         }
-        else {
+        else
             act.setEnabled(true);
-            nama.setEnabled(true);
-            kp.setEnabled(true);
-        }
 
 
     }

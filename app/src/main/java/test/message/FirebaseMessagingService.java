@@ -40,12 +40,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setAutoCancel(true)
                 .setContentTitle("Test Message")
                 .setContentText(message)
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(pendingIntent)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        manager.notify(0,builder.build());
+        int id = (int) System.currentTimeMillis();
+        manager.notify(id,builder.build());
     }
 }
