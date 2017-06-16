@@ -32,7 +32,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private void showNotification(String message) {
         Intent i = new Intent(this, displayMessage.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         int id = (int) System.currentTimeMillis();
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i,PendingIntent.FLAG_UPDATE_CURRENT);

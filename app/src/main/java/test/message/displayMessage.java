@@ -34,7 +34,6 @@ public class displayMessage extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
 
-
             }
         });
 
