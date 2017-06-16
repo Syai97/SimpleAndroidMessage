@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity{
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseInstanceId.getInstance().getToken();
 
+
         SharedPreferences.Editor ed = st.edit();
         ed.putString("Status", "Undefined");
         ed.apply();
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity{
         act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 updateInfo(android_id, nama.getText().toString(), kp.getText().toString());
                 Toast.makeText(MainActivity.this, "Berjaya", Toast.LENGTH_LONG).show();
 
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
                 .build();
 
         Request UpdateReq = new Request.Builder()
-                .url("http://192.168.1.104/androidMessage/update.php")
+                .url("http://192.168.1.106/androidMessage/update.php")
                 .post(body)
                 .build();
 
