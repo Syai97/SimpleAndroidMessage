@@ -9,24 +9,24 @@
    <form method="post" action="push_notification.php" class="form-horizontal">
    <div class="form-group">
         <label class="col-lg-4" align="right">Select User :</label>
-       <div class="col-lg-4">		
+       <div class="col-lg-4">
         <select name="user" class="form-control">
 		    <?php
 			  $conn = mysqli_connect("localhost","root","","test");
 			  $sql2 = "SELECT * FROM androidmsg";
 			  $query = mysqli_query($conn, $sql2);
-			  
+
 			  while ($row = mysqli_fetch_array($query)){
-				  echo '<option value="'.$row['username'].'">'.$row['username'].'</option>';
+				  echo '<option value="'.$row['Token'].'">'.$row['nama'].' ('.$row['kp'].')</option>';
 			  }
-			
+
 			?>
 		</select>
 		</div>
 	  </div>
       <div class="form-group">
         <label class="col-lg-4" align="right">Write Your Message :</label>
-       <div class="col-lg-4">		
+       <div class="col-lg-4">
         <textarea name="message" class="form-control"></textarea>
 		</div>
 	  </div>
@@ -41,7 +41,7 @@
 </html>
 
 
-<?php 
+<?php
 	function send_notification ($tokens, $message)
 	{
 		$url = 'https://fcm.googleapis.com/fcm/send';
@@ -59,10 +59,10 @@
        curl_setopt($ch, CURLOPT_POST, true);
        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-       curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);  
+       curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-       $result = curl_exec($ch);           
+       $result = curl_exec($ch);
        if ($result === FALSE) {
            die('Curl failed: ' . curl_error($ch));
        }
@@ -70,17 +70,18 @@
 		   $success = "<div class=\"container\">
 	                     <div class=\"alert alert-success\" align=\"center\"><strong>Success!</strong> Message Had Been Sent.</div>
 					   </div>";
+
        curl_close($ch);
        return $success;
 	}
-	
-	
+
+
 	if(isset($_POST['message'])){
 		$msg = $_POST['message'];
 		$user = $_POST['user'];
-	
+
 		$conn = mysqli_connect("localhost","root","","test");
-		$sql = " Select Token From androidmsg WHERE username = '$user'";
+		$sql = " Select Token From androidmsg WHERE Token = '$user'";
 		$result = mysqli_query($conn,$sql);
 		$tokens = array();
 		if(mysqli_num_rows($result) > 0 ){
@@ -92,6 +93,6 @@
 		$message = array("message" => $msg);
 		$message_status = send_notification($tokens, $message);
 		echo $message_status;
-	
+
 	}
  ?>

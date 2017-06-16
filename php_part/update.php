@@ -1,12 +1,14 @@
-<?php 
+<?php
 	if (isset($_POST["Token"])) {
-		
+
 		   $_uv_Token=$_POST["Token"];
-		   $deviceid = $_POST["deviceid"];
+		   $nama = $_POST["Nama"];
+       $kp = $_POST["ic"];
+
 		   $conn = mysqli_connect("localhost","root","","test") or die("Error connecting");
-		   $q="INSERT INTO androidmsg (deviceid, Token) VALUES ('$deviceid','$_uv_Token') "
-              ." ON DUPLICATE KEY UPDATE Token = '$_uv_Token';";
-              
+
+		   $q="UPDATE androidmsg SET nama = '$nama', kp = '$kp' WHERE deviceid = '$_uv_Token'";
+
       mysqli_query($conn,$q) or die(mysqli_error($conn));
       mysqli_close($conn);
 	}
